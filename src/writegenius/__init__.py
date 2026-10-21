@@ -40,6 +40,12 @@ from writegenius.metrics.lexical_diversity import (
     calculate_lexical_diversity,
     LexicalDiversityResult,
 )
+from writegenius.integrations import (
+    XClient,
+    prepare_x_thread,
+    WykopClient,
+    format_wykop_entry,
+)
 
 __all__ = [
     "__version__",
@@ -68,4 +74,8 @@ __all__ = [
     "ReadabilityScores",
     "calculate_lexical_diversity",
     "LexicalDiversityResult",
+    "XClient",
+    "prepare_x_thread",
+    "WykopClient",
+    "format_wykop_entry",
 ]

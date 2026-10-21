@@ -156,6 +156,21 @@ Path("audit_report.html").write_text(report.to_html(), encoding="utf-8")
 Path("audit_report.md").write_text(report.to_markdown(), encoding="utf-8")
 ```
 
+### 5. Social Distribution & Threading (X / Twitter & Wykop)
+
+```python
+from writegenius import prepare_x_thread, WykopClient
+
+# 1. Break down an article into sentence-compliant X thread chunks (<= 280 chars)
+tweets = prepare_x_thread("Długi artykuł naukowy lub komunikat...", max_chars=280)
+for tweet in tweets:
+    print(tweet)
+
+# 2. Format a publication draft for Wykop Mikroblog
+wykop_post = WykopClient.generate_showcase_draft()
+print(wykop_post)
+```
+
 ---
 
 ## 🔬 The Polish Readability Challenge
@@ -196,6 +211,12 @@ writegenius pisarek "Twój artykuł prasowy tutaj."
 
 # Surface text statistics
 writegenius stats "Krótki tekst testowy." --lang pl
+
+# Segment an article into an X (Twitter) thread (280 chars per tweet)
+writegenius thread-x "Długi tekst do podziału na wątek..." --max-chars 280
+
+# Generate a formatted Wykop Mikroblog community draft
+writegenius draft-wykop --preset-showcase
 ```
 
 ---

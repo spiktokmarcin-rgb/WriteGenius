@@ -8,6 +8,8 @@ from writegenius import __version__
 from writegenius.pipeline import analyze_text
 from writegenius.metrics.polish_metrics import calculate_pisarek_index
 from writegenius.core.text_stats import compute_text_stats
+from writegenius.integrations.x_client import prepare_x_thread
+from writegenius.integrations.wykop_client import format_wykop_entry, WykopClient
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -38,6 +40,19 @@ def main(argv: list[str] | None = None) -> int:
     p_stats.add_argument("-f", "--file", type=str, help="Path to text file")
     p_stats.add_argument("-l", "--lang", type=str, default="pl", help="Target language code")
 
+    # Subcommand: thread-x
+    p_thread = subparsers.add_parser("thread-x", help="Segment text into an X (Twitter) thread")
+    p_thread.add_argument("text", nargs="?", default=None, help="Input text to segment")
+    p_thread.add_argument("-f", "--file", type=str, help="Path to text file")
+    p_thread.add_argument("--max-chars", type=int, default=280, help="Max characters per post (default: 280)")
+
+    # Subcommand: draft-wykop
+    p_wykop = subparsers.add_parser("draft-wykop", help="Generate formatted Wykop Mikroblog entry")
+    p_wykop.add_argument("text", nargs="?", default=None, help="Input text or draft body")
+    p_wykop.add_argument("-f", "--file", type=str, help="Path to text file")
+    p_wykop.add_argument("--tags", type=str, default="programowanie,python,opensource", help="Comma-separated hashtags")
+    p_wykop.add_argument("--preset-showcase", action="store_true", help="Print pre-written open source announcement draft")
+
     args = parser.parse_args(argv)
 
     if not args.command:
@@ -46,7 +61,9 @@ def main(argv: list[str] | None = None) -> int:
 
     # Resolve text input
     input_text = ""
-    if getattr(args, "file", None):
+    if args.command == "draft-wykop" and getattr(args, "preset_showcase", False):
+        pass
+    elif getattr(args, "file", None):
         file_path = Path(args.file)
         if not file_path.exists():
             sys.stderr.write(f"Error: File not found: {args.file}\n")
@@ -86,6 +103,25 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Avg Sentence Len:   {stats.avg_sentence_length}")
         print(f"Avg Word Len:       {stats.avg_word_length}")
         print(f"Syllables per word: {stats.avg_syllables_per_word}")
+        return 0
+
+    if args.command == "thread-x":
+        tweets = prepare_x_thread(input_text, max_chars=args.max_chars)
+        print(f"--- Generated X Thread ({len(tweets)} tweets) ---")
+        for i, t in enumerate(tweets, 1):
+            print(f"\n[Tweet {i}/{len(tweets)} - {len(t)} chars]:\n{t}")
+        return 0
+
+    if args.command == "draft-wykop":
+        if getattr(args, "preset_showcase", False) or not input_text:
+            draft = WykopClient.generate_showcase_draft()
+            print("--- Wykop Mikroblog Showcase Draft ---\n")
+            print(draft)
+            return 0
+        tags = [t.strip() for t in args.tags.split(",") if t.strip()]
+        formatted = format_wykop_entry(input_text, tags=tags)
+        print("--- Formatted Wykop Mikroblog Entry ---\n")
+        print(formatted)
         return 0
 
     return 0
