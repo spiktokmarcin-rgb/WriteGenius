@@ -10,7 +10,7 @@
 [![Supported Languages](https://img.shields.io/badge/languages-PL%20%7C%20EN%20%7C%20DE%20%7C%20FR%20%7C%20ES%20%7C%20IT%20%7C%20UK-green.svg)](#supported-languages)
 [![Zero Heavy Dependencies](https://img.shields.io/badge/dependencies-zero%20heavy%20bloat-brightgreen.svg)](#architecture)
 
-[Features](#-features) • [Installation](#-installation) • [Interactive Web Studio](#-interactive-web-studio) • [Quickstart](#-quickstart) • [Benchmarks & Empirical Data](docs/BENCHMARKS.md) • [Polish Readability & Pisarek Index](#-the-polish-readability-challenge) • [CLI](#-command-line-interface) • [Publications](docs/RESEARCH_AND_CITATIONS.md) • [Roadmap](#-roadmap)
+[Features](#-features) • [Installation](#-installation) • [Interactive Web Studio](#-interactive-web-studio) • [Quickstart](#-quickstart) • [Benchmarks & Empirical Data](docs/BENCHMARKS.md) • [Polish Readability & Pisarek Index](#-the-polish-readability-challenge) • [CLI](#-command-line-interface) • [DevRel Agent](#-devrel--outreach-agent) • [Publications](docs/RESEARCH_AND_CITATIONS.md) • [Roadmap](#-roadmap)
 
 </div>
 
@@ -273,10 +273,36 @@ pytest
 - [x] Multi-lingual European stopword dictionary (7 languages)
 - [x] Explainable sentiment & subjectivity with negation window
 - [x] CLI entry point & JSON reporting
+- [x] Export to publication-ready HTML & Markdown executive reporting
+- [x] Interactive Streamlit studio with difficulty badges
+- [x] Multilingual benchmark reference corpus & scale breakdown docs
+- [x] Social media discourse analytics for Reddit & X.com feeds
+- [x] Value-first DevRel community outreach and educational campaign agent
 - [ ] Lemmatization engine for Polish (Morfologik / Polimorf integration)
 - [ ] Czech and Slovak language modules
 - [ ] FastText / embedding-based semantic similarity module
-- [ ] Export to PDF & Markdown executive reporting
+
+---
+
+## 📣 DevRel & Outreach Agent
+
+WriteGenius includes an automated outreach assistant (`scripts/devrel_agent.py`) designed for community education and open-source dissemination on Reddit and X:
+
+```bash
+# 1. Generate educational threads for X (segmented into <= 280 char tweets)
+python scripts/devrel_agent.py --platform x --mode campaigns
+
+# 2. Generate showcase posts for Reddit (r/Python, r/Polska)
+python scripts/devrel_agent.py --platform reddit --mode campaigns
+
+# 3. Search public Reddit discussions for relevant NLP topics
+python scripts/devrel_agent.py --mode search --query "czytelność"
+
+# 4. Draft a contextual, value-first response to an ongoing thread
+python scripts/devrel_agent.py --mode reply --topic-title "Jak mierzyć czytelność tekstu w Pythonie?"
+```
+
+The agent follows an anti-spam, value-first methodology: rather than dropping plain links, it explains the underlying mathematical problems (e.g. why 3+ syllable rules break on Slavic morphology) and references WriteGenius as an open-source solution.
 
 ---
 
