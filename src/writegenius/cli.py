@@ -10,6 +10,12 @@ from writegenius.metrics.polish_metrics import calculate_pisarek_index
 from writegenius.core.text_stats import compute_text_stats
 from writegenius.integrations.x_client import prepare_x_thread
 from writegenius.integrations.wykop_client import format_wykop_entry, WykopClient
+from writegenius.integrations.social_analyzer import (
+    SocialPost,
+    analyze_social_posts,
+    fetch_reddit_posts,
+    parse_x_timeline,
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -53,6 +59,15 @@ def main(argv: list[str] | None = None) -> int:
     p_wykop.add_argument("--tags", type=str, default="programowanie,python,opensource", help="Comma-separated hashtags")
     p_wykop.add_argument("--preset-showcase", action="store_true", help="Print pre-written open source announcement draft")
 
+    # Subcommand: analyze-social
+    p_social = subparsers.add_parser("analyze-social", help="Aggregate linguistic & sentiment audit of Reddit/X posts")
+    p_social.add_argument("--platform", choices=["reddit", "x"], default="reddit", help="Source platform (default: reddit)")
+    p_social.add_argument("--subreddit", type=str, default="polska", help="Subreddit name (for platform=reddit)")
+    p_social.add_argument("-f", "--file", type=str, help="Path to JSON file containing raw posts or X API response")
+    p_social.add_argument("--limit", type=int, default=20, help="Number of items to ingest (default: 20)")
+    p_social.add_argument("-l", "--lang", type=str, default=None, help="Force target language")
+    p_social.add_argument("--json", action="store_true", help="Output aggregated report as JSON")
+
     args = parser.parse_args(argv)
 
     if not args.command:
@@ -61,7 +76,7 @@ def main(argv: list[str] | None = None) -> int:
 
     # Resolve text input
     input_text = ""
-    if args.command == "draft-wykop" and getattr(args, "preset_showcase", False):
+    if (args.command == "draft-wykop" and getattr(args, "preset_showcase", False)) or args.command == "analyze-social":
         pass
     elif getattr(args, "file", None):
         file_path = Path(args.file)
@@ -122,6 +137,41 @@ def main(argv: list[str] | None = None) -> int:
         formatted = format_wykop_entry(input_text, tags=tags)
         print("--- Formatted Wykop Mikroblog Entry ---\n")
         print(formatted)
+        return 0
+
+    if args.command == "analyze-social":
+        import json
+        posts: list[SocialPost] = []
+        if args.platform == "reddit":
+            if args.file:
+                raw_data = json.loads(Path(args.file).read_text(encoding="utf-8"))
+                if isinstance(raw_data, list):
+                    posts = [SocialPost(**item) if isinstance(item, dict) and "platform" in item else SocialPost(id=str(i), platform="reddit", text=item.get("text", str(item))) for i, item in enumerate(raw_data)]
+                elif isinstance(raw_data, dict):
+                    children = raw_data.get("data", {}).get("children", [])
+                    for item in children:
+                        p_data = item.get("data", {})
+                        full_body = f"{p_data.get('title', '')}. {p_data.get('selftext', '')}".strip()
+                        if full_body:
+                            posts.append(SocialPost(id=p_data.get("id", ""), platform="reddit", text=full_body, author=p_data.get("author")))
+            else:
+                posts = fetch_reddit_posts(subreddit=args.subreddit, limit=args.limit)
+                if not posts:
+                    sys.stderr.write(f"Warning: Could not fetch live Reddit posts from r/{args.subreddit}. Ensure internet connectivity or pass a JSON file via -f.\n")
+                    return 1
+        elif args.platform == "x":
+            if not args.file:
+                sys.stderr.write("Error: For X analysis, please provide a JSON file of tweets via -f (or piped input).\n")
+                return 1
+            raw_data = json.loads(Path(args.file).read_text(encoding="utf-8"))
+            tweet_list = raw_data if isinstance(raw_data, list) else raw_data.get("data", [])
+            posts = parse_x_timeline(tweet_list)
+
+        report = analyze_social_posts(posts, lang=args.lang)
+        if args.json:
+            print(json.dumps(report.to_dict(), indent=2, ensure_ascii=False))
+        else:
+            print(report.summary())
         return 0
 
     return 0

@@ -171,6 +171,23 @@ wykop_post = WykopClient.generate_showcase_draft()
 print(wykop_post)
 ```
 
+### 6. Social Media Discourse Analytics (Reddit & X.com)
+
+```python
+from writegenius import fetch_reddit_posts, analyze_social_posts, parse_x_timeline
+
+# 1. Ingest public posts from Reddit (e.g. r/polska) without requiring API keys
+reddit_posts = fetch_reddit_posts(subreddit="polska", limit=20)
+reddit_report = analyze_social_posts(reddit_posts, lang="pl")
+print(reddit_report.summary())
+
+# 2. Ingest and analyze a timeline of tweets from X.com API v2
+tweets_payload = [{"id": "1", "text": "Exciting updates in open source European NLP."}]
+x_posts = parse_x_timeline(tweets_payload)
+x_report = analyze_social_posts(x_posts, lang="en")
+print(x_report.summary())
+```
+
 ---
 
 ## 🔬 The Polish Readability Challenge
@@ -217,6 +234,10 @@ writegenius thread-x "Długi tekst do podziału na wątek..." --max-chars 280
 
 # Generate a formatted Wykop Mikroblog community draft
 writegenius draft-wykop --preset-showcase
+
+# Analyze social media feeds (e.g. Reddit r/polska or X JSON feeds)
+writegenius analyze-social --platform reddit --subreddit polska --limit 20
+writegenius analyze-social --platform x -f tweets.json --json
 ```
 
 ---

@@ -45,6 +45,11 @@ from writegenius.integrations import (
     prepare_x_thread,
     WykopClient,
     format_wykop_entry,
+    SocialPost,
+    SocialBatchReport,
+    analyze_social_posts,
+    fetch_reddit_posts,
+    parse_x_timeline,
 )
 
 __all__ = [
@@ -78,4 +83,9 @@ __all__ = [
     "prepare_x_thread",
     "WykopClient",
     "format_wykop_entry",
+    "SocialPost",
+    "SocialBatchReport",
+    "analyze_social_posts",
+    "fetch_reddit_posts",
+    "parse_x_timeline",
 ]
