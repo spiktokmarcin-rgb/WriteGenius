@@ -1,0 +1,1 @@
+"""WriteGenius test suite."""
