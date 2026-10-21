@@ -10,7 +10,7 @@
 [![Supported Languages](https://img.shields.io/badge/languages-PL%20%7C%20EN%20%7C%20DE%20%7C%20FR%20%7C%20ES%20%7C%20IT%20%7C%20UK-green.svg)](#supported-languages)
 [![Zero Heavy Dependencies](https://img.shields.io/badge/dependencies-zero%20heavy%20bloat-brightgreen.svg)](#architecture)
 
-[Features](#-features) • [Installation](#-installation) • [Quickstart](#-quickstart) • [Polish Readability & Pisarek Index](#-the-polish-readability-challenge) • [CLI](#-command-line-interface) • [Roadmap](#-roadmap)
+[Features](#-features) • [Installation](#-installation) • [Interactive Web Studio](#-interactive-web-studio) • [Quickstart](#-quickstart) • [Polish Readability & Pisarek Index](#-the-polish-readability-challenge) • [CLI](#-command-line-interface) • [Roadmap](#-roadmap)
 
 </div>
 
@@ -67,6 +67,24 @@ pip install -e .
 ```bash
 pip install -e ".[dev]"
 ```
+
+---
+
+## 🖥️ Interactive Web Studio
+
+WriteGenius ships with a built-in Streamlit studio for instant visual text evaluation in your browser:
+
+```bash
+pip install streamlit
+streamlit run app.py
+```
+
+Features included in the web interface:
+- **Real-time Indeks Pisarka** with cognitive difficulty badges and target audience detection.
+- **Multilingual Readability Benchmarks** (Flesch, Fog, Flesch-Kincaid, ARI).
+- **Lexical Diversity & Richness meters** (TTR, Guiraud Index, Hapax Legomena, Lexical Density).
+- **Automated Diagnostic Recommendations** identifying polysyllabic bottlenecks and sentence complexity.
+- **Ready-to-use Presets** (Legal/Corporate Polish, News Media, Children's Story, Technical Whitepapers).
 
 ---
 
