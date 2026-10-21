@@ -1,0 +1,68 @@
+{
+  "description": "WriteGenius Multilingual Benchmark Corpus for Linguistic and Readability Validation",
+  "version": "1.0.0",
+  "tiers": {
+    "tier_1": "Elementary / Primary Education (Ages 6-10)",
+    "tier_2": "Mass Communication / Daily Journalism (General Public)",
+    "tier_3": "Secondary & Higher Education / Specialized Journalism",
+    "tier_4": "Academic, Technical & Statutory Legal (Specialists)"
+  },
+  "samples": [
+    {
+      "id": "pl_tier1_01",
+      "language": "pl",
+      "tier": 1,
+      "category": "elementary_reader",
+      "expected_difficulty": "Bardzo łatwy",
+      "text": "Mama ma psa i małego kota. Kot pije mleko z miski. Pies biega szybko po zielonej trawie. Dzieci bawią się wesoło w ogrodzie przed domem."
+    },
+    {
+      "id": "pl_tier2_01",
+      "language": "pl",
+      "tier": 2,
+      "category": "daily_journalism",
+      "expected_difficulty": "Łatwy",
+      "text": "Od jutra wchodzą w życie nowe bilety miejskie. Mieszkańcy kupią je szybko w biletomatach na każdym przystanku. Dodatkowe autobusy wyjadą na trasy w godzinach porannych. Nowy rozkład jazdy ułatwi dojazd do pracy i szkoły."
+    },
+    {
+      "id": "pl_tier3_01",
+      "language": "pl",
+      "tier": 3,
+      "category": "academic_popular_science",
+      "expected_difficulty": "Trudny",
+      "text": "Wzrost cen energii wpływa bezpośrednio na koszty produkcji w małych i średnich przedsiębiorstwach. Właściciele firm poszukują alternatywnych źródeł zasilania, aby ograniczyć straty finansowe. Eksperci przewidują stopniową stabilizację rynku pod koniec bieżącego kwartału."
+    },
+    {
+      "id": "pl_tier4_01",
+      "language": "pl",
+      "tier": 4,
+      "category": "statutory_legal",
+      "expected_difficulty": "Trudny / Bardzo trudny",
+      "text": "Zgodnie z art. 299 Kodeksu spółek handlowych, jeżeli egzekucja przeciwko spółce okaże się bezskuteczna, członkowie zarządu odpowiadają solidarnie za jej zobowiązania. Członek zarządu może uwolnić się od odpowiedzialności, wykazując, że we właściwym czasie zgłoszono wniosek o ogłoszenie upadłości lub otwarcie postępowania restrukturyzacyjnego."
+    },
+    {
+      "id": "en_tier1_01",
+      "language": "en",
+      "tier": 1,
+      "category": "elementary_reader",
+      "expected_difficulty": "Easy",
+      "text": "The dog ran across the yard. The boy threw a red ball. The dog caught the ball and brought it back. It was a sunny and happy afternoon."
+    },
+    {
+      "id": "en_tier2_01",
+      "language": "en",
+      "tier": 2,
+      "category": "daily_journalism",
+      "expected_difficulty": "Standard",
+      "text": "The municipal council approved the new road budget yesterday. City workers will repair five main streets during the coming week. Drivers should expect short delays during peak morning hours."
+    },
+    {
+      "id": "en_tier4_01",
+      "language": "en",
+      "tier": 4,
+      "category": "technical_whitepaper",
+      "expected_difficulty": "Difficult",
+      "text": "The consensus architecture relies on cryptographic threshold signatures and asynchronous Byzantine agreement protocols. State transitions are verified through succinct non-interactive arguments of knowledge, ensuring deterministic transaction finality without requiring centralized state serialization."
+    }
+  ]
+}

@@ -10,7 +10,7 @@
 [![Supported Languages](https://img.shields.io/badge/languages-PL%20%7C%20EN%20%7C%20DE%20%7C%20FR%20%7C%20ES%20%7C%20IT%20%7C%20UK-green.svg)](#supported-languages)
 [![Zero Heavy Dependencies](https://img.shields.io/badge/dependencies-zero%20heavy%20bloat-brightgreen.svg)](#architecture)
 
-[Features](#-features) • [Installation](#-installation) • [Interactive Web Studio](#-interactive-web-studio) • [Quickstart](#-quickstart) • [Polish Readability & Pisarek Index](#-the-polish-readability-challenge) • [CLI](#-command-line-interface) • [Roadmap](#-roadmap)
+[Features](#-features) • [Installation](#-installation) • [Interactive Web Studio](#-interactive-web-studio) • [Quickstart](#-quickstart) • [Benchmarks & Empirical Data](docs/BENCHMARKS.md) • [Polish Readability & Pisarek Index](#-the-polish-readability-challenge) • [CLI](#-command-line-interface) • [Publications](docs/RESEARCH_AND_CITATIONS.md) • [Roadmap](#-roadmap)
 
 </div>
 
@@ -139,6 +139,21 @@ diversity = calculate_lexical_diversity(tokens, lang="en")
 print(f"Word count: {stats.word_count}")
 print(f"Type-Token Ratio (TTR): {diversity.type_token_ratio}")
 print(f"Lexical Density: {diversity.lexical_density}")
+```
+
+### 4. Exporting Production Reports (HTML & Markdown)
+
+```python
+from writegenius import analyze_text
+from pathlib import Path
+
+report = analyze_text("Twój tekst do audytu...")
+
+# Export publication-ready HTML audit with print styles
+Path("audit_report.html").write_text(report.to_html(), encoding="utf-8")
+
+# Export clean Markdown summary
+Path("audit_report.md").write_text(report.to_markdown(), encoding="utf-8")
 ```
 
 ---

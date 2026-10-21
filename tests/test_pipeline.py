@@ -21,6 +21,15 @@ def test_analyze_text_polish():
     summary_str = report.summary()
     assert "WriteGenius Text Analysis Report" in summary_str
 
+    md_str = report.to_markdown()
+    assert "# Linguistic Audit Report" in md_str
+    assert "Pisarek Index" in md_str
+
+    html_str = report.to_html()
+    assert "<!DOCTYPE html>" in html_str
+    assert "Indeks Pisarka" in html_str
+    assert "class=\"metric-grid\"" in html_str
+
 
 def test_analyze_text_english():
     text = "WriteGenius delivers fast linguistic evaluation for European languages."
