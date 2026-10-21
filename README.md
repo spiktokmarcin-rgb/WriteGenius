@@ -223,16 +223,35 @@ pytest
 
 ---
 
-## 📜 Citation
+## 📚 Scientific Foundations & Publications
 
-If you use WriteGenius in your academic research or software project, please cite:
+WriteGenius is built upon peer-reviewed empirical linguistics and quantitative stylometry. The complete research bibliography, formulas, and academic citations are documented in [docs/RESEARCH_AND_CITATIONS.md](docs/RESEARCH_AND_CITATIONS.md).
+
+### Key References
+
+1. **Walery Pisarek (1969)** — *Jak mierzyć czytelność tekstu* [How to measure text readability]. *Zeszyty Prasoznawcze*, 10(4), 35–46. The definitive empirical benchmark for Polish readability and 4+ syllable cognitive thresholds.
+2. **Bartosz Broda, Bartłomiej Nitoń, Włodzimierz Gruszczyński, Maciej Ogrodniczuk (2014)** — *Measuring Readability of Polish Texts: A New Computational Approach*. *Proceedings of LREC 2014*, Reykjavik, Iceland, pp. 3118–3122. Foundational research on Polish syllabic nucleus detection and palatal glides.
+3. **Rudolf Flesch (1948)** — *A new readability yardstick*. *Journal of Applied Psychology*, 32(3), 221–233.
+4. **J. Peter Kincaid et al. (1975)** — *Derivation of new readability formulas (Automated Readability Index, Fog Count, and Flesch Reading Ease Formula)*. Chief of Naval Technical Training.
+5. **Pierre Guiraud (1954)** — *Les caractères statistiques du vocabulaire: Essai de méthodologie*. Presses Universitaires de France. Mathematical formulation of Root TTR ($R = V / \sqrt{N}$).
+6. **Robert Gunning (1952)** — *The Technique of Clear Writing*. McGraw-Hill.
+7. **Bo Pang & Lillian Lee (2008)** — *Opinion Mining and Sentiment Analysis*. *Foundations and Trends in Information Retrieval*, 2(1–2), 1–135.
+
+---
+
+## 📜 Citation & Lineage
+
+WriteGenius serves as the foundational open-source evaluation core of the **ContentGenius** initiative (in active research since 2022), aimed at demonstrating that AI-assisted content can match and surpass top-tier human authors in factual density, semantic clarity, and linguistic precision.
+
+If you use WriteGenius in your academic research or production pipeline, please cite:
 
 ```bibtex
 @software{writegenius2026,
-  author = {WriteGenius Contributors},
-  title = {WriteGenius: Multilingual Natural Language Processing & Readability Engine for European Languages},
-  year = {2026},
-  url = {https://github.com/spiktokmarcin-rgb/WriteGenius}
+  author    = {WriteGenius Contributors},
+  title     = {WriteGenius: Multilingual Natural Language Processing & Readability Engine for European Languages},
+  year      = {2026},
+  url       = {https://github.com/spiktokmarcin-rgb/WriteGenius},
+  note      = {Open-source evaluation engine of the ContentGenius ecosystem (est. 2022)}
 }
 ```
 
